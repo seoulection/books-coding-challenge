@@ -1,7 +1,7 @@
-import type { Book } from '../types'
+import type { Book } from "../types";
 
 interface BookDetailsProps {
-  book: Book
+  book: Book;
 }
 function BookDetails({ book }: BookDetailsProps) {
   const {
@@ -11,8 +11,8 @@ function BookDetails({ book }: BookDetailsProps) {
     description,
     publisher,
     rank,
-    title
-  } = book
+    title,
+  } = book;
 
   return (
     <div className="bookDetails" data-testid="BookDetails">
@@ -25,9 +25,11 @@ function BookDetails({ book }: BookDetailsProps) {
         <p>{description}</p>
       </div>
       <p>Publisher: {publisher}</p>
-      <a href={amazonProductUrl} target="_blank" rel="noreferrer noopener">Buy now from Amazon</a>
+      <a href={amazonProductUrl} target="_blank" rel="noreferrer noopener">
+        Buy now from Amazon
+      </a>
     </div>
-  )
+  );
 }
 
-export default BookDetails
+export default BookDetails;

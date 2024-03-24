@@ -1,4 +1,4 @@
-import BookDetails from './BookDetails'
-import BookList from './BookList'
+import BookDetails from "./BookDetails";
+import BookList from "./BookList";
 
-export { BookDetails, BookList }
+export { BookDetails, BookList };

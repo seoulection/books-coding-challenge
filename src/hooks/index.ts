@@ -1,56 +1,61 @@
-import { useEffect, useState } from 'react'
-import { API_KEY } from '../constants'
-import type { ApiResponse, Book, BookDetails } from '../types'
+import { useEffect, useState } from "react";
+import { API_KEY } from "../constants";
+import type { ApiResponse, Book, BookDetails } from "../types";
 
 export function useBooks() {
-  const [books, setBooks] = useState<Book[]>([])
-  const [error, setError] = useState<Error | null>(null)
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [books, setBooks] = useState<Book[]>([]);
+  const [error, setError] = useState<Error | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function fetchBooks() {
       try {
-        const response = await fetch(`https://api.nytimes.com/svc/books/v3/lists.json?list=hardcover-fiction&api-key=${API_KEY}`)
+        const response = await fetch(
+          `https://api.nytimes.com/svc/books/v3/lists.json?list=hardcover-fiction&api-key=${API_KEY}`,
+        );
         if (!response.ok) {
-          throw Error(response.statusText)
+          throw Error(response.statusText);
         }
 
         const { results } = await response.json();
-        const books = transform(results)
+        const books = transform(results);
 
-        setBooks(books)
+        setBooks(books);
       } catch (error) {
-        setError(error as Error)
+        setError(error as Error);
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
     }
 
-    fetchBooks()
-  }, [])
+    fetchBooks();
+  }, []);
 
-  return { books, error, isLoading }
+  return { books, error, isLoading };
 }
 
 function transform(results: ApiResponse[] | undefined): Book[] {
   if (!results) return [];
 
-  return results.map(({
-    amazon_product_url,
-    bestsellers_date,
-    book_details,
-    rank
-  }: ApiResponse) => {
-    const [{ author, description, publisher, title }] = book_details as BookDetails[]
-
-    return {
-      amazonProductUrl: amazon_product_url,
-      author,
-      bestsellersDate: bestsellers_date,
-      description,
-      publisher,
+  return results.map(
+    ({
+      amazon_product_url,
+      bestsellers_date,
+      book_details,
       rank,
-      title
-    }
-  })
+    }: ApiResponse) => {
+      const [{ author, description, publisher, title }] =
+        book_details as BookDetails[];
+
+      return {
+        amazonProductUrl: amazon_product_url,
+        author,
+        bestsellersDate: bestsellers_date,
+        description,
+        publisher,
+        rank,
+        title,
+      };
+    },
+  );
 }

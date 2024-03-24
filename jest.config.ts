@@ -1,16 +1,16 @@
-import type { Config } from 'jest'
+import type { Config } from "jest";
 
 const config: Config = {
-  preset: 'ts-jest',
-  testEnvironment: 'jsdom',
+  preset: "ts-jest",
+  testEnvironment: "jsdom",
   moduleNameMapper: {
-    '\\.css?$': '<rootDir>/__mocks__/styleMock.ts'
+    "\\.css?$": "<rootDir>/__mocks__/styleMock.ts",
   },
   transform: {
-    '\\.[jt]sx?$': 'ts-jest'
+    "\\.[jt]sx?$": "ts-jest",
   },
-  transformIgnorePatterns: ['<rootDir>/node_modules/'],
-  verbose: true
-}
+  transformIgnorePatterns: ["<rootDir>/node_modules/"],
+  verbose: true,
+};
 
-export default config
+export default config;
