@@ -44,13 +44,13 @@ describe("App", () => {
   test("shows error indicator", () => {
     (useBooks as jest.Mock).mockReturnValue({
       books: [],
-      error: new Error("something bad happened"),
+      error: new Error("some error occurred"),
       isLoading: false,
     });
 
     render(<App />);
 
-    expect(screen.getByText(/error: something bad happened/i)).toBeVisible();
+    expect(screen.getByText(/error: some error occurred/i)).toBeVisible();
   });
 
   test("shows book list on page load", () => {

@@ -31,29 +31,11 @@ describe("useBooks", () => {
     });
   });
 
-  test("sets another for non-200 status codes", async () => {
+  test("sets error for non-200 status codes", async () => {
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () =>
-          Promise.resolve({
-            results: [
-              {
-                amazon_product_url: "some-url",
-                bestsellers_date: "some-date",
-                book_details: [
-                  {
-                    author: "some author",
-                    description: "some description",
-                    publisher: "some publisher",
-                    title: "some title",
-                  },
-                ],
-                rank: "1",
-              },
-            ],
-          }),
         ok: false,
-        statusText: "you done did it",
+        statusText: "some status text",
       }),
     ) as jest.Mock;
 
@@ -62,7 +44,7 @@ describe("useBooks", () => {
     await waitFor(() => {
       expect(result.current.books).toEqual([]);
       expect(result.current.error instanceof Error).toEqual(true);
-      expect(result.current.error?.message).toEqual("you done did it");
+      expect(result.current.error?.message).toEqual("some status text");
       expect(result.current.isLoading).toEqual(false);
     });
   });
