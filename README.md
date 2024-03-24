@@ -38,6 +38,14 @@ Install the dependencies:
 npm install
 ```
 
+Make a copy of the `.env.example` file and save it as `.env.local`
+
+```
+cp .env.example .env.local
+```
+
+In `.env.local`, paste the API key
+
 ## Starting the server
 
 ```
